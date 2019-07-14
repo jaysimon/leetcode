@@ -16,14 +16,35 @@ class ListNode:
 
 
 def mergetTwoLists(l1, l2):
-    while(True):
-        if(l1.val < l2.val):
-            l1.next = l2
-            tmp = l2
-            l2.next = l1.next
+    nodeA = l1
+    nodeB = l2
+    nodeHead = ListNode(0)
+
+    if (not nodeA):
+        return nodeB
+    if (not nodeB):
+        return nodeA
+
+    nodeResult = nodeHead
+    while (nodeA and nodeB):
+        if (nodeA.val < nodeB.val):
+            nodeHead.next = nodeA
+            nodeA = nodeA.next
         else:
+            nodeHead.next = nodeB
+            nodeB = nodeB.next
+        nodeHead = nodeHead.next
+        # nodeNew = nodeResult
+        # while (nodeNew != None):
+        #     print(nodeNew.val)
+        #     nodeNew = nodeNew.next
 
+    if(nodeA):
+        nodeHead.next = nodeA
+    else:
+        nodeHead.next = nodeB
 
+    return nodeResult.next
 
 
 if __name__ == "__main__":
@@ -31,11 +52,14 @@ if __name__ == "__main__":
     l1.next = ListNode(2)
     l1.next.next = ListNode(4)
 
+    # l2 = None
     l2 = ListNode(1)
     l2.next = ListNode(3)
     l2.next.next = ListNode(4)
 
-    new_node = mergetTwoLists(l1, l2)
-    while (new_node != None):
-        print(new_node.val)
-        new_node = new_node.next
+    nodeNew = mergetTwoLists(l1, l2)
+
+
+    while (nodeNew != None):
+        print(nodeNew.val)
+        nodeNew = nodeNew.next

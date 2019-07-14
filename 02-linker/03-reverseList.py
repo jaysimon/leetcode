@@ -16,35 +16,25 @@ class ListNode:
 
 
 def reverseList(head: ListNode) -> ListNode:
-    # iLen = 0
-    # lNodes = []
-    # tmp = ListNode(0)
-    # if head == None:
-    #     return None
-    # while (head != None):
-    #     lNodes.append(head)
-    #     iLen += 1
-    #     head = head.next
-    #
-    # for iIndex in range(iLen - 1):
-    #     lNodes[-iIndex - 1].next = lNodes[-iIndex - 2]
-    #
-    # lNodes[0].next = None
-    # return lNodes[-1]
-
-    node = head
-    tail  = None
-    if head == None:
+    if (not head):
         return None
-    while(True):
-        next_node = node.next
-        node.next = tail
-        tail = node
-        if next_node == None:
-            break
-        node = next_node
-    return node
+    nCurrent = head
+    nHead = ListNode(0)
+    nHead.next = nCurrent
+    while (nCurrent.next):
+        # print(nCurrent.val, nCurrent.next.val)
+        nNext = nCurrent.next
 
+        nCurrent.next = nNext.next
+        nNext.next = nHead.next
+        nHead.next = nNext
+
+        # new_node = nHead
+        # while (new_node != None):
+        #     print(new_node.val)
+        #     new_node = new_node.next
+        # print("\n")
+    return nHead.next
 
 
 if __name__ == "__main__":
@@ -54,7 +44,9 @@ if __name__ == "__main__":
     node.next.next.next = ListNode(4)
     node.next.next.next.next = ListNode(5)
 
+    new_node = node
     new_node = reverseList(node)
+
     while (new_node != None):
         print(new_node.val)
         new_node = new_node.next
