@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*- #
 # Copyright (C) 2018 ShenZhen Hian Speech S&T Co.,Ltd. All rights reserved.
-# FileName : isSymmetric.py
+# FileName : 04-levelOrder.py
 # Author : Hou Wei
 # Version : V1.0
 # Date: 2019-02-21
-# Description:
+# Description: 按照层级遍历
 # History:
 
 
@@ -41,28 +41,41 @@ def list2Tree(lList):
     return lNodes[0]
 
 
-class Solution(object):
-    def isSymmetric(self, root):
-        tRoot = root
-        if None == tRoot:
-            return True
-        return self.judgeSymmetric(root.left, root.right)
+class Solution:
+    lList = []
 
-    def judgeSymmetric(self, tLeft, tRight):
-        if (None == tLeft or None == tRight):
-            return tLeft == tRight
-        print(tLeft.val, tRight.val)
-        return tLeft.val == tRight.val and self.judgeSymmetric(tLeft.left, tRight.right) and \
-               self.judgeSymmetric(tLeft.right, tRight.left)
+    def levelTraverse(self, tRoot):
+        lTmp = []
+        if tRoot == None:
+            return None
+
+        queue = []
+
+        queue.append(tRoot)
+        while (queue):
+            lTmp = []
+            for iIndex in range(len(queue)):
+                lTmp.append(queue[iIndex].val)
+            lList.append(lTmp)
+            current_node = queue.pop(0)
+
+            print(current_node.val)
+
+            if (current_node.left):
+                queue.append(current_node.left)
+            if (current_node.right):
+                queue.append(current_node.right)
+        print(lList)
+        return 0
 
 
 if __name__ == "__main__":
-    # lList = [1, 2, 3, 4, 5, 6, 7]
-    lList = [1, 2, 2, None, 3, None, 3]
+    lList = [1, 2, 3, 4, 5, 6, 7]
+    # lList = [1, 2, 2, None, 3, None, 3]
     # lList = [1, 2, 2, 3, 4, 4, 3]
-    lList = [1, 2, 2]
-    lList = [1, 2, 2, 2, None, 2]
+    # lList = [1, 2, 2]
+    # lList = [1, 2, 2, 2, None, 2]
 
     tRoot = list2Tree(lList)
     solution = Solution()
-    print(solution.isSymmetric(tRoot))
+    solution.levelTraverse(tRoot)
