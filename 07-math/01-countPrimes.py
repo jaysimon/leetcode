@@ -16,9 +16,11 @@
 # History:
 
 import math
+import time
 
 
 class Solution(object):
+    # 判断质数的办法
     # def judgePrime(self, iNum):
     #     for iIndex in range(2, int(math.sqrt(iNum)+1)):
     #         # print(iNum % iIndex)
@@ -31,17 +33,29 @@ class Solution(object):
         :type n: int
         :rtype: int
         """
-        lList = list(n)
-        for iIndex in range(2, n):
-            for jIndex in range(2, n):
-                if()
-        print(lList)
-        return len(lList)
+        if (n < 2):
+            return 0
+
+        lList = [1] * n
+        iSqrt = int(math.sqrt(n))
+        lList[0] = 0
+        lList[1] = 0
+
+        for iIndex in range(2, iSqrt + 1):
+            if (1 == lList[iIndex]):
+                lList[iIndex * iIndex:n:iIndex] = [0] * len(
+                    lList[iIndex * iIndex:n:iIndex])
+
+        return sum(lList)
 
 
 def main():
     solution = Solution()
-    print(solution.countPrimes(1111113))
+
+    fStart = time.time()
+    print(solution.countPrimes(10))
+    fStop = time.time()
+    print("time: ", (fStop - fStart) * 1000, "ms")
     # print(solution.judgePrime(4))
 
 
