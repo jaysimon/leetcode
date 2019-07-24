@@ -42,39 +42,43 @@ def list2Tree(lList):
 
 
 class Solution:
-    lList = []
-
-    def levelTraverse(self, tRoot):
-        lTmp = []
+    def levelTraverse(self, root):
+        tRoot = root
+        lResult = []
         if tRoot == None:
-            return None
+            return lResult
 
         queue = []
 
         queue.append(tRoot)
         while (queue):
+            iLen = len(queue)
             lTmp = []
-            for iIndex in range(len(queue)):
-                lTmp.append(queue[iIndex].val)
-            lList.append(lTmp)
-            current_node = queue.pop(0)
+            nextQue = []
+            for iIndex in range(iLen):
+                tTmp = queue[iIndex]
+                # if not tTmp:
+                #     break
+                lTmp.append(tTmp.val)
+                if(tTmp.left):
+                    nextQue.append(queue[iIndex].left)
+                if(tTmp.right):
+                    nextQue.append(queue[iIndex].right)
+            queue = nextQue
 
-            print(current_node.val)
-
-            if (current_node.left):
-                queue.append(current_node.left)
-            if (current_node.right):
-                queue.append(current_node.right)
-        print(lList)
-        return 0
+            lResult.append(lTmp)
+            print(lResult)
+        return lResult
 
 
 if __name__ == "__main__":
-    lList = [1, 2, 3, 4, 5, 6, 7]
+    lList = [1, 2, 3, None, 5, 6, 7]
+    # lList = []
     # lList = [1, 2, 2, None, 3, None, 3]
     # lList = [1, 2, 2, 3, 4, 4, 3]
     # lList = [1, 2, 2]
     # lList = [1, 2, 2, 2, None, 2]
+    lList = [3, 9, 20, None, None, 15, 7]
 
     tRoot = list2Tree(lList)
     solution = Solution()
