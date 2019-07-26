@@ -33,12 +33,18 @@ import time
 
 
 class Solution(object):
-    def hammingWeight(self, x, y):
+    def hammingDistance(self, x, y):
         """
         :type x: int
         :type y: int
         :rtype: int
         """
+        iResult = 0
+        n = x ^ y
+        while (n):
+            iResult += 1
+            n &= (n - 1)
+        return iResult
 
 
 def main():
@@ -47,7 +53,7 @@ def main():
     solution = Solution()
 
     fStart = time.time()
-    print(solution.hammingWeight(x, y))
+    print(solution.hammingDistance(x, y))
     fStop = time.time()
     print("time: ", (fStop - fStart) * 1000, "ms")
     # print(solution.judgePrime(4))

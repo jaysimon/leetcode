@@ -32,42 +32,40 @@ import time
 
 
 class Solution:
-    def reverseBits(self, n):
+    def generate(self, n):
         """
         :type numRows: int
         :rtype: List[List[int]]
         """
+        lCur = []
         lResult = []
-        llResult = []
-        if (1 == n):
-            return [1]
-        lTmp = [1]
+        lPre = [1]
         for iIndex in range(n):
-            for jIndex in range(iIndex + 1):
+            for jIndex in range(iIndex+1):
                 # print(iIndex, jIndex)
                 if (0 == jIndex):
-                    lResult.append(1)
+                    lCur.append(1)
                 elif(iIndex == jIndex):
-                    lResult.append(1)
+                    lCur.append(1)
                     break
                 else:
-                    lResult.append(lTmp[jIndex] + lTmp[jIndex + 1])
-                print(lResult)
-                lTmp = lResult.copy()
-                lResult = []
-            llResult.append(lResult)
-            print("---")
+                    lCur.append(lPre[jIndex - 1] + lPre[jIndex])
+                # print(lCur)
+            lPre = lCur
+            lResult.append(lCur)
+            lCur = []
+            # print("---")
             # print(llResult)
-        # print(llResult)
+        return lResult
 
 
 def main():
-    iN = 5
+    iN = 1
 
     solution = Solution()
 
     fStart = time.time()
-    print(solution.reverseBits(iN))
+    print(solution.generate(iN))
     fStop = time.time()
     print("time: ", (fStop - fStart) * 1000, "ms")
     # print(solution.judgePrime(4))
